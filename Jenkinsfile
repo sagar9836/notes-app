@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'agent-1'
+    }
     environment {
         IMAGE_NAME = "notes-app:latest"
         CONTAINER_NAME = "notes-app-container"
