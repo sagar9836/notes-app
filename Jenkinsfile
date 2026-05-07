@@ -19,6 +19,7 @@ pipeline {
         }
 
         stage('Build Docker Image') {
+
             steps {
 
                 sh '''
@@ -26,14 +27,11 @@ pipeline {
 
                 echo "Running as user: $(whoami)"
 
-                echo "======= Docker Version ========="
-             
-
                 echo "======= Running Containers ========="
-                echo "$(docker ps)"
+                docker ps
 
                 echo "======= Docker Images ========="
-                echo "$(docker images)"
+                docker images
                 '''
             }
         }
@@ -81,7 +79,9 @@ pipeline {
                 <p><b>Build URL:</b> ${env.BUILD_URL}</p>
                 """,
 
-                to: "sagarpaal9836@gmail.com"
+                to: "sagarpaal9836@gmail.com",
+
+                mimeType: "text/html"
             )
         }
 
@@ -104,16 +104,19 @@ pipeline {
                 <p><b>Check Console Output:</b> ${env.BUILD_URL}</p>
                 """,
 
-                to: "sagarpaal9836@gmail.com"
-                from: "sagarpaal116@gamil.com"
-                replyTo: "sagarpaal116@gmail.com"
-                mimeType: "text/html"
+                to: "sagarpaal9836@gmail.com",
+
+                from: "sagarpaal116@gmail.com",
+
+                replyTo: "sagarpaal116@gmail.com",
+
+                mimeType: "text/html",
+
                 attachmentsPattern: "trivyfs.txt"
             )
         }
     }
-}
-    
+}    
 
 
 
