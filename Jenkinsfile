@@ -1,35 +1,47 @@
 pipeline {
-    agent {
-        label 'agent-1'
-    }
+
+    agent any
+
     environment {
         IMAGE_NAME = "notes-app:latest"
         CONTAINER_NAME = "notes-app-container"
         PORT = "9092"
-        DOCKER_HUB_USER = "9836sagar9836" // Add your username here
+        DOCKER_HUB_USER = "9836sagar9836"
     }
+
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/sagar9836/notes-app.git'
+                git branch: 'master',
+                url: 'https://github.com/sagar9836/notes-app.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
+
                 sh '''
                 echo "======= Building Docker Image ========="
+
                 echo "Running as user: $(whoami)"
-                echo " $(docker --version)"
-                echo " $(docker ps)"
-           
-                echo " $(docker images) "
+
+                echo "======= Docker Version ========="
+                docker --version
+
+                echo "======= Running Containers ========="
+                docker ps
+
+                echo "======= Docker Images ========="
+                docker images
                 '''
             }
         }
 
         stage('Docker Login & Push') {
+
             steps {
+
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'dockerhub_creds',
@@ -37,24 +49,74 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )
                 ]) {
+
                     sh '''
-                    echo "======= Logging in and Pushing ========="
+                    echo "======= Logging in to DockerHub ========="
+
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                    
                     '''
                 }
             }
         }
     }
+
     post {
+
         success {
-            echo "Notes App Deployed Successfully"
+
+            echo "Notes App Deployed Successfully 🚀"
+
+            emailext(
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+
+                body: """
+                <h2>Build Successful 🚀</h2>
+
+                <p><b>Job Name:</b> ${env.JOB_NAME}</p>
+
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+
+                <p><b>Status:</b> SUCCESS</p>
+
+                <p><b>Build URL:</b> ${env.BUILD_URL}</p>
+                """,
+
+                to: "sagarpaal9836@gmail.com"
+            )
         }
+
         failure {
-            echo "Notes app Deployment failed. Check logs"
+
+            echo "Notes App Deployment Failed ❌"
+
+            emailext(
+                subject: "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+
+                body: """
+                <h2>Build Failed 💀</h2>
+
+                <p><b>Job Name:</b> ${env.JOB_NAME}</p>
+
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+
+                <p><b>Status:</b> FAILURE</p>
+
+                <p><b>Check Console Output:</b> ${env.BUILD_URL}</p>
+                """,
+
+                to: "sagarpaal9836@gmail.com"
+            )
         }
     }
 }
+    
+
+
+
+
+
+
+    
 // pipeline {
 //     agent {
 //         label 'agent-1'
