@@ -27,7 +27,7 @@ pipeline {
                 echo "Running as user: $(whoami)"
 
                 echo "======= Docker Version ========="
-                docker --version
+             
 
                 echo "======= Running Containers ========="
                 docker ps
