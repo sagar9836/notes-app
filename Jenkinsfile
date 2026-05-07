@@ -30,10 +30,10 @@ pipeline {
              
 
                 echo "======= Running Containers ========="
-                docker ps
+                echo "$(docker ps)"
 
                 echo "======= Docker Images ========="
-                docker images
+                echo "$(docker images)"
                 '''
             }
         }
