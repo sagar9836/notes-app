@@ -28,10 +28,10 @@ pipeline {
                 echo "Running as user: $(whoami)"
 
                 echo "======= Running Containers ========="
-                docker ps
+            
 
                 echo "======= Docker Images ========="
-                docker images
+              
                 '''
             }
         }
