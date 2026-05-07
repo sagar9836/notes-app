@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'agent-1"
+    }
     environment {
         IMAGE_NAME = "notes-app:latest"
         CONTAINER_NAME = "notes-app-container"
@@ -15,7 +17,7 @@ pipeline {
             steps {
                 sh '''
                 echo "=======Building Docker Image========="
-            
+                
                 echo "$whoami"
                 echo " build ho rha h"
                 '''
