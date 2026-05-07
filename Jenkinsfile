@@ -20,7 +20,8 @@ pipeline {
                 sh '''
                 echo "======= Building Docker Image ========="
                 echo "Running as user: $(whoami)"
-                
+                echo " $(docker --version)"
+                echo " $(docker ps)"
                 '''
             }
         }
