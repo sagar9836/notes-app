@@ -20,7 +20,7 @@ pipeline {
                 sh '''
                 echo "======= Building Docker Image ========="
                 echo "Running as user: $(whoami)"
-                docker build -t ${DOCKER_HUB_USER}/${IMAGE_NAME} .
+                
                 '''
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                     sh '''
                     echo "======= Logging in and Pushing ========="
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                    docker push ${DOCKER_USER}/${IMAGE_NAME}
+                    
                     '''
                 }
             }
