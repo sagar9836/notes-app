@@ -22,7 +22,7 @@ pipeline {
                 echo "Running as user: $(whoami)"
                 echo " $(docker --version)"
                 echo " $(docker ps)"
-                docker pull hello-world
+           
                 echo " $(docker images) "
                 '''
             }
