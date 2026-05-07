@@ -6,7 +6,7 @@ pipeline {
         IMAGE_NAME = "notes-app:latest"
         CONTAINER_NAME = "notes-app-container"
         PORT = "9092"
-        DOCKER_HUB_USER = "your-dockerhub-username" // Add your username here
+        DOCKER_HUB_USER = "9836sagar9836" // Add your username here
     }
     stages {
         stage('Checkout') {
