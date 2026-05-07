@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh '''
                 echo "=======Building Docker Image========="
-                // docker build -t $IMAGE_NAME .
+            
                 echo "$whoami"
                 echo " build ho rha h"
                 '''
