@@ -11,14 +11,14 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/sagar9836/notes-app.git'
             }
         }
-        // stage('Build Docker Image') {
-        //     steps {
-        //         sh '''
-        //         echo "=======Building Docker Image========="
-        //         docker build -t $IMAGE_NAME .
-        //         '''
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                echo "=======Building Docker Image========="
+                docker build -t $IMAGE_NAME .
+                '''
+            }
+        }
         // stage('Stop Old Container') {
         //     steps {
         //         sh '''
