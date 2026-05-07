@@ -23,6 +23,7 @@ pipeline {
                 echo " $(docker --version)"
                 echo " $(docker ps)"
                 docker pull hello-world
+                echo " $(docker images) "
                 '''
             }
         }
