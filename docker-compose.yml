@@ -5,5 +5,5 @@ services:
     image: 9836sagar9836/notes-app-image:latest
     container_name: notes-app
     ports:
-      - "8080:80"
+      - "3000:80"
 
