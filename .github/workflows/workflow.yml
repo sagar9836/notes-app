@@ -61,3 +61,48 @@ jobs:
           
           echo "====== Printing Application Startup Logs ======"
           docker logs ${{ env.CONTAINER_NAME }} --tail 20
+
+      # ==========================================
+      # 📩 POST SUCCESS EMAIL (Jenkins Replicated)
+      # ==========================================
+      - name: Send Success Email
+        if: success() # Runs ONLY if everything above passes completely
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: sagarpaal116@gmail.com
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ SUCCESS: ${{ github.repository }} #${{ github.run_number }}"
+          to: sagarpaal9836@gmail.com
+          from: "GitHub Actions Custom Mailer <sagarpaal116@gmail.com>"
+          secure: true
+          html_body: |
+            <h2>Build Successful 🚀</h2>
+            <p><b>Job Name:</b> ${{ github.repository }}</p>
+            <p><b>Build Number:</b> #${{ github.run_number }}</p>
+            <p><b>Status:</b> SUCCESS</p>
+            <p><b>Build URL:</b> https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}</p>
+
+      # ==========================================
+      # 💀 POST FAILURE EMAIL (Jenkins Replicated)
+      # ==========================================
+      - name: Send Failure Email
+        if: failure() # Runs ONLY if any prior deployment step fails
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: sagarpaal116@gmail.com
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "❌ FAILURE: ${{ github.repository }} #${{ github.run_number }}"
+          to: sagarpaal9836@gmail.com
+          from: sagarpaal116@gmail.com
+          reply_to: sagarpaal116@gmail.com
+          secure: true
+          html_body: |
+            <h2>Build Failed 💀</h2>
+            <p><b>Job Name:</b> ${{ github.repository }}</p>
+            <p><b>Build Number:</b> #${{ github.run_number }}</p>
+            <p><b>Status:</b> FAILURE</p>
+            <p><b>Check Console Output:</b> https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}</p>
