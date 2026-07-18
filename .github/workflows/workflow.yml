@@ -15,7 +15,7 @@ env:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ec2]
 
     steps:
       - name: Checkout code
@@ -53,3 +53,5 @@ jobs:
           echo "====== Running New Container ======"
           # Note: Double-check if your app inside the Dockerfile exposes 8080 or 80!
           docker run -d --name ${{ env.CONTAINER_NAME }} -p ${{ env.PORT }}:8080 ${{ env.DOCKER_HUB_USER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          docker pull hell
+          docker run -d --name helloworld-container -p 9092:8080 helloworld:latest
