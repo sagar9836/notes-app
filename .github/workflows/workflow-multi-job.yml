@@ -19,7 +19,7 @@ jobs:
   # JOB 1: Build & Push (Runs on GitHub Cloud in parallel)
   # ========================================================
   build-and-push:
-    runs-on: ubuntu-latest # Saves EC2 resources by building in GitHub's cloud
+    runs-on: self-hosted # Saves EC2 resources by building in GitHub's cloud
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
